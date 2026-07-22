@@ -1,7 +1,7 @@
 exports.version = 1
 exports.apiRequired = 1
-exports.repo = "rejetto/cors"
-exports.description = "Allow CORS requests"
+exports.repo = "feuerswut/hfs-cors-by-path"
+exports.description = "Allow CORS requests, filtered by path"
 
 exports.init = () => ({
     middleware(ctx) {
