@@ -1,4 +1,4 @@
-exports.version = 2
+exports.version = 2.1
 exports.apiRequired = 1
 exports.repo = "feuerswut/hfs-cors-by-path"
 exports.description = "Allow CORS requests, filtered by path"
@@ -55,7 +55,8 @@ exports.init = api => {
             if (origin) {
                 try { isExternal = new URL(origin).host !== ctx.host } catch (e) {}
             }
-            if (isExternal && pathMatches(ctx.path, api.getConfig('paths'))) {
+            const normalizedPath = require('path').posix.normalize(ctx.path)
+            if (isExternal && pathMatches(normalizedPath, api.getConfig('paths'))) {
                 ctx.set('Access-Control-Allow-Methods', '*')
                 ctx.set('Access-Control-Allow-Origin', '*')
                 ctx.set('Access-Control-Allow-Headers', '*')
