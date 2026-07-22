@@ -1,4 +1,4 @@
-exports.version = 1
+exports.version = 2
 exports.apiRequired = 1
 exports.repo = "feuerswut/hfs-cors-by-path"
 exports.description = "Allow CORS requests, filtered by path"
