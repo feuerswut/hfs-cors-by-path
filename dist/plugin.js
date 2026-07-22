@@ -50,11 +50,16 @@ exports.init = api => {
 
     return {
         middleware(ctx) {
-            const paths = api.getConfig('paths')
-            if (!pathMatches(ctx.path, paths)) return
-            ctx.set('Access-Control-Allow-Methods', '*')
-            ctx.set('Access-Control-Allow-Origin', '*')
-            ctx.set('Access-Control-Allow-Headers', '*')
+            const origin = ctx.get('origin')
+            let isExternal = false
+            if (origin) {
+                try { isExternal = new URL(origin).host !== ctx.host } catch (e) {}
+            }
+            if (isExternal && pathMatches(ctx.path, api.getConfig('paths'))) {
+                ctx.set('Access-Control-Allow-Methods', '*')
+                ctx.set('Access-Control-Allow-Origin', '*')
+                ctx.set('Access-Control-Allow-Headers', '*')
+            }
         }
     }
 }
